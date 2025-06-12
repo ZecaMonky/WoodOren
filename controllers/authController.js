@@ -8,19 +8,35 @@ exports.getLogin = (req, res) => {
 exports.postLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log('Login attempt for email:', email);
+        
         const cleanEmail = email.trim().toLowerCase();
         const user = await User.findOne({ where: { email: cleanEmail } });
+        
+        console.log('User found:', !!user);
+        
+        if (!user) {
+            console.log('User not found');
+            req.flash('error', 'Неверный email или пароль');
+            return res.redirect('/login');
+        }
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        console.log('Password match:', passwordMatch);
+
+        if (!passwordMatch) {
+            console.log('Password does not match');
             req.flash('error', 'Неверный email или пароль');
             return res.redirect('/login');
         }
 
         if (user.banned) {
+            console.log('User is banned');
             req.flash('error', 'Ваш аккаунт заблокирован. Обратитесь к администрации.');
             return res.redirect('/login');
         }
 
+        console.log('Login successful, setting session');
         req.session.user = {
             id: user.id,
             name: user.name,
@@ -30,7 +46,7 @@ exports.postLogin = async (req, res) => {
 
         res.redirect('/');
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('Login error details:', error);
         req.flash('error', 'Ошибка при входе');
         res.redirect('/login');
     }
