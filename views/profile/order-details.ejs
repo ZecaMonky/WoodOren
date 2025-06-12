@@ -1,0 +1,71 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Заказ #<%= order.id %></h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Информация о заказе</h5>
+                        <p><strong>Дата:</strong> <%= new Date(order.created_at).toLocaleDateString() %></p>
+                        <p><strong>Статус:</strong> 
+                            <span class="badge bg-<%= 
+                                order.status === 'pending' ? 'warning' :
+                                order.status === 'processing' ? 'info' :
+                                order.status === 'shipped' ? 'primary' :
+                                order.status === 'delivered' ? 'success' :
+                                'danger'
+                            %>">
+                                <%= {
+                                    pending: 'Ожидает',
+                                    processing: 'В обработке',
+                                    shipped: 'Отправлен',
+                                    delivered: 'Доставлен',
+                                    cancelled: 'Отменен'
+                                }[order.status] %>
+                            </span>
+                        </p>
+                        <p><strong>Адрес доставки:</strong> <%= order.shipping_address %></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Товары</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Товар</th>
+                                        <th>Количество</th>
+                                        <th>Цена</th>
+                                        <th>Сумма</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% order.OrderItems.forEach(item => { %>
+                                        <tr>
+                                            <td><img src="<%= item.Product.image %>" alt="<%= item.Product.name %>" style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:8px;"> <%= item.Product.name %></td>
+                                            <td><%= item.quantity %></td>
+                                            <td><%= item.price %> ₽</td>
+                                            <td><%= (item.price * item.quantity).toFixed(2) %> ₽</td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="text-end"><strong>Итого:</strong></td>
+                                        <td><strong><%= order.total_amount %> ₽</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <a href="/profile/orders" class="btn btn-secondary">Назад к списку заказов</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

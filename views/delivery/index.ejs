@@ -1,0 +1,81 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Доставка</h1>
+
+    <!-- Регионы доставки -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Регионы доставки</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Регион</th>
+                            <th>Стоимость</th>
+                            <th>Срок доставки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% deliveryInfo.regions.forEach(region => { %>
+                            <tr>
+                                <td><%= region.name %></td>
+                                <td><%= region.price %></td>
+                                <td><%= region.time %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Способы доставки -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Способы доставки</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <% deliveryInfo.methods.forEach(method => { %>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title"><%= method.name %></h6>
+                                <p class="card-text"><%= method.description %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Условия доставки -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Условия доставки</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <% deliveryInfo.conditions.forEach(condition => { %>
+                    <li class="list-group-item">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        <%= condition %>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Дополнительная информация -->
+    <div class="alert alert-info mt-4">
+        <h5>Важная информация</h5>
+        <p class="mb-0">
+            После оформления заказа наш менеджер свяжется с вами для уточнения деталей доставки.
+            Вы сможете выбрать удобное время и способ доставки.
+        </p>
+    </div>
+</div> 

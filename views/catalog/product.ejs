@@ -1,0 +1,45 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/catalog">Каталог</a></li>
+            <li class="breadcrumb-item"><a href="/catalog/category/<%= product.Category.slug %>"><%= product.Category.name %></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= product.name %></li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="<%= product.image %>" class="img-fluid rounded" alt="<%= product.name %>">
+        </div>
+        <div class="col-md-6">
+            <h1><%= product.name %></h1>
+            <p class="text-muted">Категория: <%= product.Category.name %></p>
+            <h2 class="text-primary mb-4"><%= product.price %> ₽</h2>
+            
+            <div class="mb-4">
+                <h5>Описание</h5>
+                <p><%= product.description %></p>
+            </div>
+            
+            <div class="mb-4">
+                <h5>Наличие</h5>
+                <p class="<%= product.stock > 0 ? 'text-success' : 'text-danger' %>">
+                    <%= product.stock > 0 ? 'В наличии' : 'Нет в наличии' %>
+                </p>
+            </div>
+            
+            <% if (product.stock > 0) { %>
+                <form action="/cart/add" method="POST">
+                    <input type="hidden" name="id" value="<%= product.id %>">
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Количество</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="<%= product.stock %>">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Добавить в корзину</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</div> 

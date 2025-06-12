@@ -1,0 +1,57 @@
+<%- contentFor('body') %>
+<div class="container admin-panel mt-5 mb-5">
+    <h1 class="mb-4">Админ-панель</h1>
+    <% if (locals.error && error.length) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (locals.success && success.length) { %>
+        <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Товары</h5>
+                    <p class="display-6"><%= productsCount %></p>
+                    <a href="/admin/products" class="btn btn-primary w-100">Управлять</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Категории</h5>
+                    <p class="display-6"><%= categoriesCount %></p>
+                    <a href="/admin/categories" class="btn btn-primary w-100">Управлять</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Заказы</h5>
+                    <p class="display-6"><%= ordersCount %></p>
+                    <a href="/admin/orders" class="btn btn-primary w-100">Управлять</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Пользователи</h5>
+                    <p class="display-6"><%= usersCount %></p>
+                    <a href="/admin/users" class="btn btn-primary w-100">Управлять</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Сообщения</h5>
+                    <p class="display-6"><%= contactMessagesCount %></p>
+                    <a href="/admin/contact-messages" class="btn btn-primary w-100">Управлять</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

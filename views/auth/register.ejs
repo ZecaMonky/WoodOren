@@ -1,0 +1,37 @@
+<%- contentFor('body') %>
+<div class="auth-page">
+  <form class="auth-form" action="/auth/register" method="POST" novalidate>
+    <h2>Регистрация</h2>
+    <div class="mb-3">
+      <label for="name" class="form-label">Имя</label>
+      <input type="text" class="form-control<%= errors && errors.name ? ' is-invalid' : '' %>" id="name" name="name" value="<%= values && values.name ? values.name : '' %>" required>
+      <% if (errors && errors.name) { %>
+        <div class="invalid-feedback d-block"><%= errors.name %></div>
+      <% } else { %>
+        <div class="form-text">Только буквы, минимум 2 символа</div>
+      <% } %>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control<%= errors && errors.email ? ' is-invalid' : '' %>" id="email" name="email" value="<%= values && values.email ? values.email : '' %>" required>
+      <% if (errors && errors.email) { %>
+        <div class="invalid-feedback d-block"><%= errors.email %></div>
+      <% } else { %>
+        <div class="form-text">Введите корректный email</div>
+      <% } %>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Пароль</label>
+      <input type="password" class="form-control<%= errors && errors.password ? ' is-invalid' : '' %>" id="password" name="password" required>
+      <% if (errors && errors.password) { %>
+        <div class="invalid-feedback d-block"><%= errors.password %></div>
+      <% } else { %>
+        <div class="form-text">Минимум 6 символов, буквы и цифры</div>
+      <% } %>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+    <div class="mt-3 text-center">
+      <a href="/auth/login">Уже есть аккаунт? Войти</a>
+    </div>
+  </form>
+</div> 

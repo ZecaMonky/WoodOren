@@ -1,0 +1,26 @@
+<%- contentFor('body') %>
+<div class="container mt-4">
+    <h2 class="mb-4">Сообщения с формы контактов</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Сообщение</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% messages.forEach(msg => { %>
+                    <tr>
+                        <td><%= msg.name %></td>
+                        <td><%= msg.email %></td>
+                        <td><%= msg.message %></td>
+                        <td><%= msg.created_at.toLocaleString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div> 

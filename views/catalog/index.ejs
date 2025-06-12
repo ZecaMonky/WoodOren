@@ -1,0 +1,53 @@
+<%- contentFor('body') %>
+<main class="catalog-page-main">
+  <div class="catalog-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4 mb-md-0">
+          <div class="catalog-content">
+            <div class="filter-block mb-4">
+              <h5 class="mb-3">Категории</h5>
+              <div class="list-group">
+                <% categories.forEach(category => { %>
+                  <a href="/catalog/category/<%= category.slug %>" class="list-group-item list-group-item-action">
+                    <%= category.name %>
+                  </a>
+                <% }); %>
+              </div>
+            </div>
+            <div class="filter-block">
+              <h5 class="mb-3">Сортировка</h5>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">По умолчанию</a>
+                <a href="#" class="list-group-item list-group-item-action">По возрастанию цены</a>
+                <a href="#" class="list-group-item list-group-item-action">По убыванию цены</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <% products.forEach(product => { %>
+              <div class="col-md-4 mb-4">
+                <div class="card product-card h-100 shadow-sm border-0">
+                  <div class="ratio ratio-1x1 bg-light rounded-top overflow-hidden">
+                    <img src="<%= product.image %>" class="card-img-top object-fit-contain p-4" alt="<%= product.name %>">
+                  </div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title mb-1 fw-bold"><%= product.name %></h5>
+                    <div class="text-muted small mb-2"><%= product.Category.name %></div>
+                    <div class="mb-3 fs-5 fw-semibold text-dark"><%= product.price %> ₽</div>
+                    <div class="mt-auto w-100 d-flex gap-2 flex-nowrap product-card-actions">
+                      <a href="/catalog/<%= product.id %>" class="btn btn-outline-primary flex-fill">Подробнее</a>
+                      <button class="btn btn-primary flex-fill">В корзину</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main> 

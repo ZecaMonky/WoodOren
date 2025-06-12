@@ -1,0 +1,90 @@
+<%- contentFor('body') %>
+
+<div class="container catalog-page">
+    <div class="row flex-wrap">
+        <!-- Фильтры -->
+        <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Категории</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="/catalog" class="list-group-item list-group-item-action <%= !currentCategory ? 'active' : '' %>">
+                            Все товары
+                        </a>
+                        <% categories.forEach(category => { %>
+                            <a href="/catalog?category=<%= category.id %>" 
+                               class="list-group-item list-group-item-action <%= currentCategory == category.id ? 'active' : '' %>">
+                                <%= category.name %>
+                            </a>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Сортировка</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="/catalog?<%= new URLSearchParams({ ...query, sort: '' }).toString() %>" 
+                           class="list-group-item list-group-item-action <%= !currentSort ? 'active' : '' %>">
+                            По умолчанию
+                        </a>
+                        <a href="/catalog?<%= new URLSearchParams({ ...query, sort: 'price_asc' }).toString() %>" 
+                           class="list-group-item list-group-item-action <%= currentSort === 'price_asc' ? 'active' : '' %>">
+                            По возрастанию цены
+                        </a>
+                        <a href="/catalog?<%= new URLSearchParams({ ...query, sort: 'price_desc' }).toString() %>" 
+                           class="list-group-item list-group-item-action <%= currentSort === 'price_desc' ? 'active' : '' %>">
+                            По убыванию цены
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товары -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <% products.forEach(product => { %>
+                    <div class="col">
+                        <div class="card h-100 product-card">
+                            <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= product.name %></h5>
+                                <p class="card-text text-muted"><%= product.Category.name %></p>
+                                <p class="card-text"><%= product.price %> ₽</p>
+                                <div class="d-flex flex-column flex-md-row gap-2 gap-md-0 justify-content-between align-items-center mt-2">
+                                    <a href="/product/<%= product.id %>" class="btn btn-outline-primary w-100 w-md-auto mb-2 mb-md-0 me-md-2">Подробнее</a>
+                                    <form action="/cart/add" method="POST" class="d-inline w-100 w-md-auto">
+                                        <input type="hidden" name="id" value="<%= product.id %>">
+                                        <button type="submit" class="btn btn-primary w-100 w-md-auto">В корзину</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+
+            <!-- Пагинация -->
+            <% if (totalPages > 1) { %>
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <% for(let i = 1; i <= totalPages; i++) { %>
+                            <li class="page-item <%= currentPage == i ? 'active' : '' %>">
+                                <a class="page-link" 
+                                   href="/catalog?<%= new URLSearchParams({ ...query, page: i }).toString() %>">
+                                    <%= i %>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } %>
+        </div>
+    </div>
+</div> 

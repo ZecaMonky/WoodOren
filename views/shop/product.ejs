@@ -1,0 +1,42 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="<%= product.image %>" class="img-fluid rounded" alt="<%= product.name %>">
+        </div>
+        <div class="col-md-6">
+            <h1><%= product.name %></h1>
+            <p class="text-muted">Категория: <%= product.Category.name %></p>
+            <p class="h3 mb-4"><%= product.price %> ₽</p>
+            
+            <div class="mb-4">
+                <h5>Описание</h5>
+                <p><%= product.description %></p>
+            </div>
+
+            <form action="/cart/add" method="POST" class="mb-4">
+                <input type="hidden" name="id" value="<%= product.id %>">
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="quantity" class="col-form-label">Количество:</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" max="<%= product.stock %>">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="alert alert-info">
+                <% if (product.stock > 0) { %>
+                    В наличии: <%= product.stock %> шт.
+                <% } else { %>
+                    Нет в наличии
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div> 

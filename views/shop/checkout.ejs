@@ -1,0 +1,88 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <h1>Оформление заказа</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Информация о доставке</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/checkout" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="full_name" class="form-label">ФИО</label>
+                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Иванов Иван Иванович" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7XXXXXXXXXX" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="city" class="form-label">Город</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Москва" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="street" class="form-label">Улица</label>
+                                <input type="text" class="form-control" id="street" name="street" placeholder="Ленина" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="house" class="form-label">Дом</label>
+                                <input type="text" class="form-control" id="house" name="house" placeholder="10" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="apartment" class="form-label">Квартира</label>
+                                <input type="text" class="form-control" id="apartment" name="apartment" placeholder="15" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="postal_code" class="form-label">Почтовый индекс</label>
+                                <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="123456" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4">Оформить заказ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Ваш заказ</h5>
+                </div>
+                <div class="card-body">
+                    <% cartItems.forEach(item => { %>
+                        <div class="d-flex justify-content-between mb-2">
+                            <div>
+                                <%= item.name %>
+                                <small class="text-muted d-block">Количество: <%= item.quantity %></small>
+                            </div>
+                            <div><%= item.total.toFixed(2) %> ₽</div>
+                        </div>
+                    <% }); %>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Итого:</strong>
+                        <strong><%= total.toFixed(2) %> ₽</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = phoneInput.value.replace(/\D/g, ''); // только цифры
+            if (value.startsWith('8')) value = value.slice(1); // если ввели 8, убираем
+            value = value.slice(0, 10); // максимум 10 цифр после +7
+            phoneInput.value = '+7' + value;
+        });
+    });
+</script> 

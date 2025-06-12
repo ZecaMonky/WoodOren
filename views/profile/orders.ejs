@@ -1,0 +1,56 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <h1>Мои заказы</h1>
+
+    <% if (orders.length === 0) { %>
+        <div class="alert alert-info">
+            У вас пока нет заказов. <a href="/catalog">Перейти в каталог</a>
+        </div>
+    <% } else { %>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th>Сумма</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(order => { %>
+                        <tr>
+                            <td><%= order.id %></td>
+                            <td><%= new Date(order.created_at).toLocaleDateString() %></td>
+                            <td>
+                                <span class="badge bg-<%= 
+                                    order.status === 'pending' ? 'warning' :
+                                    order.status === 'processing' ? 'info' :
+                                    order.status === 'shipped' ? 'primary' :
+                                    order.status === 'delivered' ? 'success' :
+                                    'danger'
+                                %>">
+                                    <%= {
+                                        pending: 'Ожидает',
+                                        processing: 'В обработке',
+                                        shipped: 'Отправлен',
+                                        delivered: 'Доставлен',
+                                        cancelled: 'Отменен'
+                                    }[order.status] %>
+                                </span>
+                            </td>
+                            <td><%= order.total_amount %> ₽</td>
+                            <td>
+                                <a href="/profile/orders/<%= order.id %>" class="btn btn-sm btn-primary">
+                                    Детали
+                                </a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } %>
+</div> 

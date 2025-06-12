@@ -1,0 +1,71 @@
+<%- contentFor('body') %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Профиль</h4>
+                </div>
+                <div class="card-body">
+                    <% if (locals.error && error.length) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                    <% } %>
+                    <% if (locals.success && success.length) { %>
+                        <div class="alert alert-success"><%= success %></div>
+                    <% } %>
+
+                    <form action="/profile" method="POST" novalidate>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Имя</label>
+                            <input type="text" class="form-control<%= errors && errors.name ? ' is-invalid' : '' %>" id="name" name="name" value="<%= values && values.name ? values.name : user.name %>" required>
+                            <% if (errors && errors.name) { %>
+                                <div class="invalid-feedback d-block"><%= errors.name %></div>
+                            <% } else { %>
+                                <div class="form-text">Только буквы, минимум 2 символа</div>
+                            <% } %>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control<%= errors && errors.email ? ' is-invalid' : '' %>" id="email" name="email" value="<%= values && values.email ? values.email : user.email %>" required>
+                            <% if (errors && errors.email) { %>
+                                <div class="invalid-feedback d-block"><%= errors.email %></div>
+                            <% } else { %>
+                                <div class="form-text">Введите корректный email</div>
+                            <% } %>
+                        </div>
+
+                        <hr>
+
+                        <h5>Изменить пароль</h5>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Текущий пароль</label>
+                            <input type="password" class="form-control<%= errors && errors.currentPassword ? ' is-invalid' : '' %>" id="currentPassword" name="currentPassword">
+                            <% if (errors && errors.currentPassword) { %>
+                                <div class="invalid-feedback d-block"><%= errors.currentPassword %></div>
+                            <% } else { %>
+                                <div class="form-text">Введите текущий пароль для смены</div>
+                            <% } %>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Новый пароль</label>
+                            <input type="password" class="form-control<%= errors && errors.newPassword ? ' is-invalid' : '' %>" id="newPassword" name="newPassword">
+                            <% if (errors && errors.newPassword) { %>
+                                <div class="invalid-feedback d-block"><%= errors.newPassword %></div>
+                            <% } else { %>
+                                <div class="form-text">Минимум 6 символов, буквы и цифры</div>
+                            <% } %>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </form>
+
+                    <div class="mt-4">
+                        <h5>Мои заказы</h5>
+                        <a href="/profile/orders" class="btn btn-outline-primary">Просмотреть заказы</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

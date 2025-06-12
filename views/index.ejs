@@ -1,0 +1,119 @@
+<%- contentFor('body') %>
+
+<div class="hero-section position-relative">
+    <div class="hero-bg"></div>
+    <div class="hero-content text-center position-absolute top-50 start-50 translate-middle w-100 z-2">
+        <h1 class="hero-title">WOODOREN</h1>
+        <div class="hero-subtitle">DESIGN FURNITURE</div>
+        <p class="hero-desc">Создаём уникальную мебель из натурального дерева для вашего дома с 2010 года.</p>
+        <a href="/catalog" class="btn btn-primary hero-btn">Смотреть каталог</a>
+    </div>
+    <div class="hero-dust"></div>
+</div>
+
+<section class="collections-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Коллекции</h2>
+        <div class="collections-scroll-wrapper position-relative">
+            <div class="collections-scroll d-flex align-items-center justify-content-center overflow-auto pb-3">
+                <div class="collection-item text-center mx-3">
+                    <img src="/images/colectionchair.png" alt="Chair" class="collection-img mb-2">
+                    <div>Chair</div>
+                </div>
+                <div class="collection-item text-center mx-3">
+                    <img src="/images/colectiontable.png" alt="Table" class="collection-img mb-2">
+                    <div>Table</div>
+                </div>
+                <div class="collection-item text-center mx-3">
+                    <img src="/images/colectionbookself.png" alt="BookSelf" class="collection-img mb-2">
+                    <div>BookSelf</div>
+                </div>
+                <div class="collection-item text-center mx-3">
+                    <img src="/images/colectionsofa.png" alt="Sofa" class="collection-img mb-2">
+                    <div>Sofa</div>
+                </div>
+                <div class="collection-item text-center mx-3">
+                    <img src="/images/colectionlamp.png" alt="Lamp" class="collection-img mb-2">
+                    <div>Lamp</div>
+                </div>
+            </div>
+            <div class="collections-scroll-arrow left d-none d-md-flex align-items-center justify-content-center">
+                <span>&#8592;</span>
+            </div>
+            <div class="collections-scroll-arrow right d-none d-md-flex align-items-center justify-content-center">
+                <span>&#8594;</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-svg mb-3">
+                        <svg width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="32" fill="#F5F0E8"/><path d="M20 44l12-24 12 24H20z" stroke="#8B4513" stroke-width="2" fill="#fff"/></svg>
+                    </div>
+                    <h3>Качество</h3>
+                    <p>Используем только отборные материалы и проверенные технологии</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-svg mb-3">
+                        <svg width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="32" fill="#F5F0E8"/><rect x="20" y="28" width="24" height="16" rx="4" fill="#fff" stroke="#8B4513" stroke-width="2"/><rect x="28" y="36" width="8" height="8" rx="2" fill="#D2691E"/></svg>
+                    </div>
+                    <h3>Доставка</h3>
+                    <p>Быстрая и бережная доставка по всей России</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-svg mb-3">
+                        <svg width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="32" fill="#F5F0E8"/><rect x="24" y="24" width="16" height="16" rx="8" fill="#fff" stroke="#8B4513" stroke-width="2"/><path d="M32 32v-8" stroke="#D2691E" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3>Гарантия</h3>
+                    <p>Гарантия на всю продукцию 2 года</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="popular-products py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Популярные товары</h2>
+        <div class="row">
+            <% products.forEach(product => { %>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="price"><%= product.price %> ₽</p>
+                            <a href="/catalog/<%= product.id %>" class="btn btn-primary w-100">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<section class="about-preview py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="/images/colectionsofa.png" alt="О нас" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-4">О нашей компании</h2>
+                <p class="lead mb-4">Мы создаем уникальную мебель из натурального дерева с 2010 года</p>
+                <p>Каждый предмет мебели создается с любовью и вниманием к деталям. Мы используем только экологичные материалы и современные технологии.</p>
+                <a href="/about" class="btn btn-primary mt-3">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+</section> 
+</section> 
