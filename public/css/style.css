@@ -408,12 +408,19 @@ h1, h2, h3, .hero-title {
         overflow-y: auto;
     }
     .navbar-nav {
-        align-items: flex-start !important;
+        gap: 0 !important;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar-nav .nav-item {
+        margin: 0;
+        padding: 0;
     }
     .navbar-nav .nav-link {
-        text-align: left;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
+        font-size: 1.1rem;
+        line-height: 1.2;
     }
 }
 
