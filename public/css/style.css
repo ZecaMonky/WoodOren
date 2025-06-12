@@ -204,13 +204,19 @@ h1, h2, h3, .hero-title {
 
 @media (max-width: 600px) {
     .hero-section {
-        min-height: 320px;
+        min-height: 420px;
         max-height: none;
-        padding: 24px 0 24px 0;
+        padding: 64px 0 24px 0;
     }
-    .hero-title { font-size: 1.5rem; }
-    .hero-subtitle { font-size: 1rem; }
-    .hero-desc { font-size: 1rem; }
+    .hero-title {
+        font-size: 1.2rem;
+    }
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    .hero-desc {
+        font-size: 0.95rem;
+    }
     .hero-content { padding: 0 4px; }
     .hero-btn { min-width: 100%; font-size: 1rem; }
     .logo {
