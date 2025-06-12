@@ -7,6 +7,8 @@ const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 const { sequelize } = require('./models');
 const contactRoutes = require('./routes/contact');
+const pgSession = require('connect-pg-simple')(session);
+const { Pool } = require('pg');
 
 const app = express();
 
@@ -24,11 +26,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
+
 // Настройка сессий
 app.use(session({
+    store: new pgSession({
+        pool: pool,
+        tableName: 'session'
+    }),
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 дней
 }));
 
 app.use(flash());
