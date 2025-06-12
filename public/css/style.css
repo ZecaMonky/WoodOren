@@ -390,6 +390,12 @@ h1, h2, h3, .hero-title {
     .product-card .card-body {
         padding: 1rem 0.7rem 1rem 0.7rem;
     }
+    .navbar-collapse {
+        display: none;
+    }
+    .navbar-collapse.show {
+        display: block;
+    }
 }
 
 @media (max-width: 767.98px) {
