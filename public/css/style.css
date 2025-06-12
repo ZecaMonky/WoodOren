@@ -604,6 +604,12 @@ footer {
     .collections-scroll-arrow {
         display: none !important;
     }
+    .collection-item div {
+        font-size: 0.92rem;
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+    }
 }
 
 .feature-svg svg {
