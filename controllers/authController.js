@@ -8,7 +8,8 @@ exports.getLogin = (req, res) => {
 exports.postLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ where: { email } });
+        const cleanEmail = email.trim().toLowerCase();
+        const user = await User.findOne({ where: { email: cleanEmail } });
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
             req.flash('error', 'Неверный email или пароль');
@@ -44,13 +45,14 @@ exports.getRegister = (req, res) => {
 
 exports.postRegister = async (req, res) => {
     const { name, email, password } = req.body;
+    const cleanEmail = email.trim().toLowerCase();
     const errors = {};
-    const values = { name, email };
+    const values = { name, email: cleanEmail };
 
     if (!name || name.length < 2 || !/^[а-яА-Яa-zA-Z\s]+$/.test(name)) {
         errors.name = 'Имя должно содержать только буквы и быть не короче 2 символов';
     }
-    if (!email || !/^[\w-.]+@[\w-]+\.[a-z]{2,}$/i.test(email)) {
+    if (!cleanEmail || !/^[\w-.]+@[\w-]+\.[a-z]{2,}$/i.test(cleanEmail)) {
         errors.email = 'Введите корректный email';
     }
     if (!password || password.length < 6 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
@@ -62,7 +64,7 @@ exports.postRegister = async (req, res) => {
     }
 
     try {
-        const existingUser = await User.findOne({ where: { email } });
+        const existingUser = await User.findOne({ where: { email: cleanEmail } });
         if (existingUser) {
             req.flash('error', 'Пользователь с таким email уже существует');
             return res.redirect('/register');
@@ -71,7 +73,7 @@ exports.postRegister = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
             name,
-            email,
+            email: cleanEmail,
             password: hashedPassword,
             role: 'user'
         });
