@@ -21,8 +21,13 @@ exports.postLogin = async (req, res) => {
             return res.redirect('/login');
         }
 
+        console.log('Stored password hash:', user.password);
+        console.log('Attempting to compare passwords...');
+        
         const passwordMatch = await bcrypt.compare(password, user.password);
         console.log('Password match:', passwordMatch);
+        console.log('Input password length:', password.length);
+        console.log('Stored hash length:', user.password.length);
 
         if (!passwordMatch) {
             console.log('Password does not match');
