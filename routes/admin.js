@@ -237,6 +237,7 @@ router.delete('/categories/:id', isAdmin, async (req, res) => {
 // Orders
 router.get('/orders', isAdmin, adminController.getOrders);
 router.post('/orders/:id/status', isAdmin, adminController.updateOrderStatus);
+router.put('/orders/:id/status', isAdmin, adminController.updateOrderStatus);
 
 // Users
 router.get('/users', isAdmin, async (req, res) => {
