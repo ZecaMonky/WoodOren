@@ -214,17 +214,31 @@ h1, h2, h3, .hero-title {
     .navbar {
         min-height: 48px;
     }
-    .navbar .container {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 48px;
-    }
     .navbar-brand {
         margin-bottom: 0;
     }
     .catalog-page {
         padding-bottom: 80px;
+    }
+    .navbar-collapse {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .navbar-nav {
+        flex-direction: column !important;
+        gap: 0;
+        width: 100%;
+        align-items: flex-start;
+        padding-left: 0;
+    }
+    .navbar-nav .nav-item {
+        width: 100%;
+    }
+    .navbar-nav .nav-link {
+        width: 100%;
+        text-align: left;
+        padding: 0.8rem 1.2rem;
+        border-radius: 0;
     }
 }
 
