@@ -3,6 +3,9 @@ const { Product, Category } = require('../models');
 exports.getHome = async (req, res) => {
     try {
         const products = await Product.findAll({
+            where: {
+                hidden: false
+            },
             include: [{
                 model: Category,
                 attributes: ['name']

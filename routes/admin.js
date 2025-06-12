@@ -236,7 +236,7 @@ router.delete('/categories/:id', isAdmin, async (req, res) => {
 
 // Orders
 router.get('/orders', isAdmin, adminController.getOrders);
-router.put('/orders/:id/status', isAdmin, adminController.updateOrderStatus);
+router.post('/orders/:id/status', isAdmin, adminController.updateOrderStatus);
 
 // Users
 router.get('/users', isAdmin, async (req, res) => {
@@ -303,5 +303,9 @@ router.put('/users/:id/ban', isAdmin, async (req, res) => {
 });
 
 router.get('/contact-messages', isAdmin, adminController.getContactMessages);
+
+// Маршруты для управления товарами
+router.get('/products', adminController.getProducts);
+router.post('/products/:id/toggle-visibility', adminController.toggleProductVisibility);
 
 module.exports = router; 

@@ -14,7 +14,9 @@ exports.getCatalog = async (req, res) => {
         const maxPrice = req.query.maxPrice;
 
         // Базовые условия поиска
-        const where = {};
+        const where = {
+            hidden: false
+        };
         if (categoryId) where.category_id = categoryId;
         if (search) {
             where[Op.or] = [

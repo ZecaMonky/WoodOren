@@ -25,11 +25,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Изображение</th>
                     <th>Название</th>
-                    <th>Категория</th>
                     <th>Цена</th>
-                    <th>Наличие</th>
+                    <th>Категория</th>
+                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
             </thead>
@@ -37,24 +36,21 @@
                 <% products.forEach(product => { %>
                     <tr>
                         <td><%= product.id %></td>
-                        <td>
-                            <% if (product.image) { %>
-                                <img src="<%= product.image %>" alt="<%= product.name %>" style="width: 50px; height: 50px; object-fit: cover;">
-                            <% } else { %>
-                                <div class="bg-secondary" style="width: 50px; height: 50px;"></div>
-                            <% } %>
-                        </td>
                         <td><%= product.name %></td>
-                        <td><%= product.Category ? product.Category.name : 'Без категории' %></td>
                         <td><%= product.price %> ₽</td>
-                        <td><%= product.stock %></td>
+                        <td><%= product.Category ? product.Category.name : 'Без категории' %></td>
                         <td>
-                            <div class="d-flex gap-2">
-                                <a href="/admin/products/<%= product.id %>/edit" class="btn btn-primary btn-lg">Редактировать</a>
-                                <form action="/admin/products/<%= product.id %>?_method=DELETE" method="POST" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Вы уверены?')">Удалить</button>
-                                </form>
-                            </div>
+                            <span class="badge <%= product.hidden ? 'bg-danger' : 'bg-success' %>">
+                                <%= product.hidden ? 'Скрыт' : 'Видим' %>
+                            </span>
+                        </td>
+                        <td>
+                            <form action="/admin/products/<%= product.id %>/toggle-visibility" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm <%= product.hidden ? 'btn-success' : 'btn-warning' %>">
+                                    <%= product.hidden ? 'Показать' : 'Скрыть' %>
+                                </button>
+                            </form>
+                            <a href="/admin/products/<%= product.id %>/edit" class="btn btn-sm btn-primary">Редактировать</a>
                         </td>
                     </tr>
                 <% }); %>

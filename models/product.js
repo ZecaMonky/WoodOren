@@ -23,6 +23,10 @@ module.exports = (sequelize) => {
         category_id: {
             type: DataTypes.INTEGER,
             allowNull: true
+        },
+        hidden: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         tableName: 'products',

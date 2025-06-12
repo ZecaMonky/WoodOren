@@ -50,4 +50,35 @@ exports.getContactMessages = async (req, res) => {
         console.error('Ошибка при получении сообщений:', error);
         res.status(500).render('error', { message: 'Ошибка при получении сообщений' });
     }
+};
+
+// Управление товарами
+exports.getProducts = async (req, res) => {
+    try {
+        const products = await Product.findAll({
+            include: [{ model: Category }],
+            order: [['created_at', 'DESC']]
+        });
+        res.render('admin/products/index', { products });
+    } catch (error) {
+        console.error('Ошибка при загрузке товаров:', error);
+        res.status(500).render('error', { message: 'Ошибка при загрузке товаров' });
+    }
+};
+
+exports.toggleProductVisibility = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByPk(id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Товар не найден' });
+        }
+
+        await product.update({ hidden: !product.hidden });
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Ошибка при обновлении видимости товара:', error);
+        res.status(500).json({ error: 'Ошибка при обновлении видимости товара' });
+    }
 }; 
