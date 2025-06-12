@@ -96,14 +96,10 @@ exports.postRegister = async (req, res) => {
         }
 
         console.log('Creating new user...');
-        const hashedPassword = await bcrypt.hash(password, 10);
-        console.log('Generated hash:', hashedPassword);
-        console.log('Hash length:', hashedPassword.length);
-        
         const user = await User.create({
             name,
             email: cleanEmail,
-            password: hashedPassword,
+            password,
             role: 'user'
         });
 
