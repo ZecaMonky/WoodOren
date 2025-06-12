@@ -203,7 +203,11 @@ h1, h2, h3, .hero-title {
 }
 
 @media (max-width: 600px) {
-    .hero-section { min-height: 45vh; max-height: 60vh; }
+    .hero-section {
+        min-height: 320px;
+        max-height: none;
+        padding: 24px 0 24px 0;
+    }
     .hero-title { font-size: 1.5rem; }
     .hero-subtitle { font-size: 1rem; }
     .hero-desc { font-size: 1rem; }
