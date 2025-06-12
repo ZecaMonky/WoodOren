@@ -66,6 +66,9 @@ exports.getRegister = (req, res) => {
 
 exports.postRegister = async (req, res) => {
     const { name, email, password } = req.body;
+    console.log('Registration attempt for email:', email);
+    console.log('Password length:', password.length);
+    
     const cleanEmail = email.trim().toLowerCase();
     const errors = {};
     const values = { name, email: cleanEmail };
@@ -87,17 +90,26 @@ exports.postRegister = async (req, res) => {
     try {
         const existingUser = await User.findOne({ where: { email: cleanEmail } });
         if (existingUser) {
+            console.log('User already exists');
             req.flash('error', 'Пользователь с таким email уже существует');
             return res.redirect('/register');
         }
 
+        console.log('Creating new user...');
         const hashedPassword = await bcrypt.hash(password, 10);
+        console.log('Generated hash:', hashedPassword);
+        console.log('Hash length:', hashedPassword.length);
+        
         const user = await User.create({
             name,
             email: cleanEmail,
             password: hashedPassword,
             role: 'user'
         });
+
+        console.log('User created successfully');
+        console.log('Stored hash:', user.password);
+        console.log('Stored hash length:', user.password.length);
 
         req.session.user = {
             id: user.id,
@@ -108,7 +120,7 @@ exports.postRegister = async (req, res) => {
 
         res.redirect('/');
     } catch (error) {
-        console.error('Registration error:', error);
+        console.error('Registration error details:', error);
         req.flash('error', 'Ошибка при регистрации');
         res.redirect('/register');
     }

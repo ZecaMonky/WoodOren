@@ -35,18 +35,29 @@ module.exports = (sequelize) => {
         hooks: {
             beforeCreate: async (user) => {
                 if (user.password) {
-                    user.password = await bcrypt.hash(user.password, 10);
+                    console.log('beforeCreate hook - Original password length:', user.password.length);
+                    const hashedPassword = await bcrypt.hash(user.password, 10);
+                    console.log('beforeCreate hook - Generated hash:', hashedPassword);
+                    console.log('beforeCreate hook - Hash length:', hashedPassword.length);
+                    user.password = hashedPassword;
                 }
             },
             beforeUpdate: async (user) => {
                 if (user.changed('password')) {
-                    user.password = await bcrypt.hash(user.password, 10);
+                    console.log('beforeUpdate hook - Original password length:', user.password.length);
+                    const hashedPassword = await bcrypt.hash(user.password, 10);
+                    console.log('beforeUpdate hook - Generated hash:', hashedPassword);
+                    console.log('beforeUpdate hook - Hash length:', hashedPassword.length);
+                    user.password = hashedPassword;
                 }
             }
         }
     });
 
     User.prototype.validatePassword = async function(password) {
+        console.log('validatePassword - Input password length:', password.length);
+        console.log('validatePassword - Stored hash:', this.password);
+        console.log('validatePassword - Stored hash length:', this.password.length);
         return bcrypt.compare(password, this.password);
     };
 
