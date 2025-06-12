@@ -404,9 +404,16 @@ h1, h2, h3, .hero-title {
         right: 0;
         position: absolute;
         z-index: 1050;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    .navbar-nav {
+        align-items: flex-start !important;
     }
     .navbar-nav .nav-link {
-        color: #222;
+        text-align: left;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
 
