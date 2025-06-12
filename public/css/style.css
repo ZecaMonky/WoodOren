@@ -393,32 +393,36 @@ h1, h2, h3, .hero-title {
         padding: 1rem 0.7rem 1rem 0.7rem;
     }
     .navbar-collapse {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        max-height: 80vh;
+        overflow-y: auto;
         background: #fff;
         box-shadow: 0 8px 32px rgba(0,0,0,0.10);
         border-radius: 0 0 18px 18px;
-        margin-top: 8px;
+        margin: 0;
         padding: 12px 0 8px 0;
-        min-width: 0;
-        width: 100vw;
-        left: 0;
-        right: 0;
-        position: absolute;
         z-index: 1050;
-        max-height: 80vh;
-        overflow-y: auto;
     }
     .navbar-nav {
         gap: 0 !important;
         margin: 0;
         padding: 0;
+        align-items: flex-start !important;
     }
     .navbar-nav .nav-item {
         margin: 0;
         padding: 0;
     }
     .navbar-nav .nav-link {
+        text-align: left;
         padding-top: 0.7rem;
         padding-bottom: 0.7rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
         font-size: 1.1rem;
         line-height: 1.2;
     }
